@@ -6,7 +6,7 @@ import QueryContent from "./Queries/QueryContent"
 function RightSidebar() {
     return (
         <Sidebar className="flex flex-col h-full" isRightSideBar={true}>
-            <QueryContent />
+            {/* <QueryContent /> */}
             <TableContent />
             <HistoryContent />
         </Sidebar>

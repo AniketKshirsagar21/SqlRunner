@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 import EditorResult from "./Editor/EditorResult";
-// import LeftSidebar from "./LeftSidebar/LeftSidebar";
 import RightSidebar from "./RightSidebar/RightSidebar";
 
-import QueryContext from "../../context/QueryContext";
+import QueryContext from "../context/QueryContext";
 
 function Body() {
     const [selectedQuery, setSelectedQuery] = useState(null);
@@ -29,7 +28,6 @@ function Body() {
             <div className="flex flex-row h-full">
                 <RightSidebar />
                 <EditorResult />
-                {/* <LeftSidebar /> */}
             </div>
         </QueryContext.Provider>
     );

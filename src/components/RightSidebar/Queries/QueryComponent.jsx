@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import QueryContext from "../../../../context/QueryContext";
+import QueryContext from "../../../context/QueryContext";
 import { BiColumns } from "react-icons/bi";
 
 function QueryComponent(query) {

@@ -12,8 +12,8 @@ import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-import QueryContext from "../../../../context/QueryContext";
-import ThemeContext from "../../../../context/ThemeContext";
+import QueryContext from "../../../context/QueryContext";
+import ThemeContext from "../../../context/ThemeContext";
 
 import EditorHeader from "../EditorHeader/EditorHeader";
 

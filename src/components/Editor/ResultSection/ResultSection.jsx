@@ -1,5 +1,5 @@
 import { useContext, useCallback, useState } from "react";
-import QueryContext from "../../../../context/QueryContext";
+import QueryContext from "../../../context/QueryContext";
 import Table from "./Table";
 import Papa from "papaparse";
 import toast from "react-hot-toast";
