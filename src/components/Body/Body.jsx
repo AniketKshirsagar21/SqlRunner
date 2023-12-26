@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import EditorResult from "./Editor/EditorResult";
-import LeftSidebar from "./LeftSidebar/LeftSidebar";
+// import LeftSidebar from "./LeftSidebar/LeftSidebar";
 import RightSidebar from "./RightSidebar/RightSidebar";
 
 import QueryContext from "../../context/QueryContext";
@@ -29,7 +29,7 @@ function Body() {
             <div className="flex flex-row h-full">
                 <RightSidebar />
                 <EditorResult />
-                <LeftSidebar />
+                {/* <LeftSidebar /> */}
             </div>
         </QueryContext.Provider>
     );
