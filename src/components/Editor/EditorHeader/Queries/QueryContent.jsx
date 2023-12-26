@@ -1,5 +1,5 @@
 import queries from "../../../../DummyData/queries.json";
-import QueryComponent from "./QueryComponent";
+import QueryButtons from "./QueryButtons";
 
 function QueryContent() {
     return (
@@ -8,7 +8,7 @@ function QueryContent() {
                 Queries
             </header>
             <div className="dark:bg-gray-600"  style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {queries.map(QueryComponent)}
+                {queries.map(QueryButtons)}
             </div>
         </section>
     );

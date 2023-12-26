@@ -1,7 +1,6 @@
 import React from "react";
 import { BiCopy, BiPlay } from "react-icons/bi";
 import { Toaster } from "react-hot-toast";
-import QueryComponent from "./Queries/QueryComponent";
 import QueryContent from "./Queries/QueryContent";
 function EditorHeader({ onCopy, onRun, clearEditor }) {
   return (
@@ -15,6 +14,7 @@ function EditorHeader({ onCopy, onRun, clearEditor }) {
           <BiCopy
             className="text-indigo-500 text-2xl cursor-pointer dark:text-indigo-400"
             onClick={onCopy}
+          style={{ color: "green" }}
           />
           <Toaster position="top-center" />
           <button
@@ -22,13 +22,17 @@ function EditorHeader({ onCopy, onRun, clearEditor }) {
             className="flex items-center justify-center gap-1 bg-transparent font-medium"
             onClick={clearEditor}
           >
-            <span className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
+            <span
+              className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
+              style={{ color: "green" }}
+            >
               Clear
             </span>
           </button>
           <button
             type="button"
             className="flex gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-base font-medium py-0.5 pl-1 pr-4 rounded"
+            style={{ backgroundColor: "green" }}
             onClick={onRun}
           >
             <BiPlay className="text-2xl" />

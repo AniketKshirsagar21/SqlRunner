@@ -17,7 +17,9 @@ function Dropdown({ header, selections }) {
                 cursor-pointer"
             >
                 <ChevronIcon expanded={expanded} />
-                <h5 className="text-indigo-500 dark:text-indigo-400 text-base font-medium cursor-pointer ">
+                <h5 className="text-indigo-500 dark:text-indigo-400 text-base font-medium cursor-pointer "
+                    style={{color:"#58c132"}}
+                >
                     {header}
                 </h5>
             </div>

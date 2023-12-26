@@ -1,61 +1,48 @@
-import React, {
-    useRef,
-    useCallback,
-    useContext,
-    useState,
-    useEffect,
-} from "react";
+import React, { useRef, useCallback, useContext, useState, useEffect } from "react";
 import AceEditor from "react-ace";
-
 import "ace-builds/src-noconflict/mode-mysql";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
+import toast from "react-hot-toast";
 
 import QueryContext from "../../../context/QueryContext";
 import ThemeContext from "../../../context/ThemeContext";
-
 import EditorHeader from "../EditorHeader/EditorHeader";
 
-import toast from "react-hot-toast";
-
-function EditorSection() {
+function QueryEditorSection() {
     const {
-        selectedQuery,
-        setSelectedQuery,
-        setQueryResponse,
+        selectedQuery: currentQuery,
+        setSelectedQuery: setCurrentQuery,
+        setQueryResponse: setExecutedQueryResponse,
         addQueryToHistory,
     } = useContext(QueryContext);
 
     const { darkTheme } = useContext(ThemeContext);
-    const theme = darkTheme ? "monokai" : "xcode";
+    const editorTheme = "monokai" ;
 
-    const originalQuery = selectedQuery?.query || "";
-    const aceEditorRef = useRef(null);
+    const originalQueryText = currentQuery?.query || "";
+    const aceEditorReference = useRef(null);
 
     const copyToClipboard = useCallback(() => {
-        if (aceEditorRef.current) {
-            const text = aceEditorRef.current.editor.getValue();
+        if (aceEditorReference.current) {
+            const copiedText = aceEditorReference.current.editor.getValue();
             navigator.clipboard
-                .writeText(text)
+                .writeText(copiedText)
                 .then(() => toast.success("Copied!"));
         }
     }, []);
 
-    // TODO: useCallback causes issues below
-    const runQuery = () => {
-        let currQuery = aceEditorRef.current.editor.getValue();
-        if (currQuery === "") {
-            toast("Please select a query!", {
-                icon: "⚠️",
-            });
+    const executeQuery = () => {
+        let currentQueryText = aceEditorReference.current.editor.getValue();
+        if (currentQueryText === "") {
+            toast("Please select a query!", { icon: "⚠️" });
         } else if (
-            currQuery.toLowerCase() === originalQuery.toLowerCase() ||
-            currQuery.toLowerCase() + ";" === originalQuery.toLowerCase()
+            currentQueryText.toLowerCase() === originalQueryText.toLowerCase() ||
+            currentQueryText.toLowerCase() + ";" === originalQueryText.toLowerCase()
         ) {
-            // INFO: Fetch CSV data from API
-            setQueryResponse(selectedQuery?.response);
-            addQueryToHistory(selectedQuery);
+            setExecutedQueryResponse(currentQuery?.response);
+            addQueryToHistory(currentQuery);
             toast.success("Query executed!");
         } else {
             toast.error("Query modified!");
@@ -63,23 +50,18 @@ function EditorSection() {
     };
 
     const clearEditor = () => {
-        aceEditorRef.current.editor.setValue("")
-        setSelectedQuery(null);
+        aceEditorReference.current.editor.setValue("");
+        setCurrentQuery(null);
     };
 
-    // TODO: Can use this to store text-input in local storage
-    // const handleOnChange = () => {
-    //     console.log(aceEditorRef.current.editor.getValue());
-    // };
-
     useEffect(() => {
-        const textInput =
-            aceEditorRef.current?.editor?.container?.querySelectorAll(
+        const textInputElements =
+            aceEditorReference.current?.editor?.container?.querySelectorAll(
                 ".ace_text-input"
             );
 
-        if (textInput) {
-            textInput.forEach((input) => {
+        if (textInputElements && textInputElements.length > 0) {
+            textInputElements.forEach((input) => {
                 input.setAttribute("aria-label", "Code editor input");
             });
         }
@@ -89,24 +71,23 @@ function EditorSection() {
         <section className="flex flex-col">
             <EditorHeader
                 onCopy={copyToClipboard}
-                onRun={runQuery}
+                onRun={executeQuery}
                 clearEditor={clearEditor}
             />
             <div className="overflow-auto z-0">
                 <AceEditor
-                    key={theme}
-                    ref={aceEditorRef}
+                    key={editorTheme}
+                    ref={aceEditorReference}
                     mode="mysql"
-                    theme={theme}
+                    theme={editorTheme}
                     width="100%"
                     height="1100px"
                     placeholder="-- Write your MySQL queries here..."
                     showPrintMargin={false}
-                    // onChange={handleOnChange}
                     fontSize={18}
                     name="SQL-Editor"
                     editorProps={{ $blockScrolling: true }}
-                    value={selectedQuery?.query || ""}
+                    value={currentQuery?.query || ""}
                     setOptions={{
                         enableBasicAutocompletion: true,
                         enableLiveAutocompletion: true,
@@ -118,4 +99,4 @@ function EditorSection() {
     );
 }
 
-export default EditorSection;
+export default QueryEditorSection;
